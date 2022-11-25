@@ -18,20 +18,20 @@ export default function handler(req, res) {
     var ec2 = new AWS.EC2();
     var imageName = ''
     var imageOwner = ''
-    if (req.body.system == 'Debian 10') {
-        imageName = 'debian-10-amd64-2022*'
-        imageOwner = '136693071363'
-    }
-    if (req.body.system == 'Debian 11') {
+    if (req.body.system == 'Debian 11 AMD') {
         imageName = 'debian-11-amd64-2022*'
         imageOwner = '136693071363'
     }
-    if (req.body.system == 'Ubuntu 20.04') {
-        imageName = 'ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-2022*'
+    if (req.body.system == 'Debian 11 ARM') {
+        imageName = 'debian-11-arm64-2022*'
+        imageOwner = '136693071363'
+    }
+    if (req.body.system == 'Ubuntu 22.04 AMD') {
+        imageName = 'ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-2022*'
         imageOwner = '099720109477'
     }
-    if (req.body.system == 'Ubuntu 22.04') {
-        imageName = 'ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-2022*'
+    if (req.body.system == 'Ubuntu 22.04 ARM') {
+        imageName = 'ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-arm64-server-2022*'
         imageOwner = '099720109477'
     }
     if (req.body.system == 'Arch Linux') {
