@@ -30,8 +30,8 @@ export default function handler(req, res) {
         imageName = 'ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-2022*'
         imageOwner = '099720109477'
     }
-    if (req.body.system == 'Ubuntu 22.04 ARM') {
-        imageName = 'ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-arm64-server-2022*'
+    if (req.body.system == 'Ubuntu 20.04 ARM') {
+        imageName = 'ubuntu/images/hvm-ssd/ubuntu-focal-20.04-arm64-server*'
         imageOwner = '099720109477'
     }
     if (req.body.system == 'Arch Linux') {
