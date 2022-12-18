@@ -145,6 +145,14 @@ export default function handler(req, res) {
                                     var userDataRaw = "#!/bin/bash\necho root:" + req.body.password + "|sudo chpasswd root\nsudo rm -rf /etc/ssh/sshd_config\nsudo tee /etc/ssh/sshd_config <<EOF\nClientAliveInterval 120\nSubsystem       sftp    /usr/lib/openssh/sftp-server\nX11Forwarding yes\nPrintMotd no\nChallengeResponseAuthentication no\nPasswordAuthentication yes\nPermitRootLogin yes\nUsePAM yes\nAcceptEnv LANG LC_*\nEOF\nsudo systemctl restart sshd\n"
                                     var userData = btoa(userDataRaw)
                                     var instanceParams = {
+                                        BlockDeviceMappings: [
+                                            {
+                                                DeviceName: "/dev/xvda",
+                                                Ebs: {
+                                                    VolumeSize: parseInt(req.body.disk)
+                                                }
+                                            }
+                                        ],
                                         ImageId: imageId,
                                         InstanceType: req.body.type,
                                         KeyName: keyName,
