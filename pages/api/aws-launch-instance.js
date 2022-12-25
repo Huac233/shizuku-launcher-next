@@ -2,6 +2,8 @@ var AWS = require('aws-sdk');
 var proxyAgent = require('proxy-agent');
 
 export default function handler(req, res) {
+    const systemImageNameMap = new Map([["Debian 11 AMD", "debian-11-amd64-2022"], ["Debian 11 ARM", "debian-11-arm64-2022*"], ["Ubuntu 22.04 AMD", "ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-2022*"], ["Ubuntu 22.04 ARM", "ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-arm64-server-2022*"], ["Arch Linux", "*"], ["Windows Server 2022 简体中文版", "Windows_Server-2022-Chinese_Simplified-Full-Base-*"], ["Windows Server 2022 英文版", "Windows_Server-2022-English-Full-Base-*"]]);
+    const systemImageOwnerMap = new Map([["Debian 11 AMD", "136693071363"], ["Debian 11 ARM", "136693071363"], ["Ubuntu 22.04 AMD", "099720109477"], ["Ubuntu 22.04 ARM", "099720109477"], ["Arch Linux", "647457786197"], ["Windows Server 2022 简体中文版", "801119661308"], ["Windows Server 2022 英文版", "801119661308"]]);
     AWS.config = new AWS.Config();
     AWS.config.update(
         {
@@ -16,28 +18,8 @@ export default function handler(req, res) {
         });
     }
     var ec2 = new AWS.EC2();
-    var imageName = ''
-    var imageOwner = ''
-    if (req.body.system == 'Debian 11 AMD') {
-        imageName = 'debian-11-amd64-2022*'
-        imageOwner = '136693071363'
-    }
-    if (req.body.system == 'Debian 11 ARM') {
-        imageName = 'debian-11-arm64-2022*'
-        imageOwner = '136693071363'
-    }
-    if (req.body.system == 'Ubuntu 22.04 AMD') {
-        imageName = 'ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-2022*'
-        imageOwner = '099720109477'
-    }
-    if (req.body.system == 'Ubuntu 22.04 ARM') {
-        imageName = 'ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-arm64-server-2022*'
-        imageOwner = '099720109477'
-    }
-    if (req.body.system == 'Arch Linux') {
-        imageName = '*'
-        imageOwner = '647457786197'
-    }
+    var imageName = systemImageNameMap.get(req.body.system);
+    var imageOwner = systemImageOwnerMap.get(req.body.system);
     var imageParams = {
         Filters: [
             {
@@ -76,6 +58,7 @@ export default function handler(req, res) {
                         error: err
                     });
                 } else {
+                    var keyMaterial = data.KeyMaterial;
                     var sgParams = {
                         Description: keyName,
                         GroupName: keyName
@@ -142,9 +125,20 @@ export default function handler(req, res) {
                                         error: err
                                     });
                                 } else {
-                                    var userDataRaw = "#!/bin/bash\necho root:" + req.body.password + "|sudo chpasswd root\nsudo rm -rf /etc/ssh/sshd_config\nsudo tee /etc/ssh/sshd_config <<EOF\nClientAliveInterval 120\nSubsystem       sftp    /usr/lib/openssh/sftp-server\nX11Forwarding yes\nPrintMotd no\nChallengeResponseAuthentication no\nPasswordAuthentication yes\nPermitRootLogin yes\nUsePAM yes\nAcceptEnv LANG LC_*\nEOF\nsudo systemctl restart sshd\n"
-                                    var userData = btoa(userDataRaw)
+                                    var userData = "";
+                                    if (req.body.systemType == "Linux") {
+                                        var userDataRaw = "#!/bin/bash\necho root:" + req.body.password + "|sudo chpasswd root\nsudo rm -rf /etc/ssh/sshd_config\nsudo tee /etc/ssh/sshd_config <<EOF\nClientAliveInterval 120\nSubsystem       sftp    /usr/lib/openssh/sftp-server\nX11Forwarding yes\nPrintMotd no\nChallengeResponseAuthentication no\nPasswordAuthentication yes\nPermitRootLogin yes\nUsePAM yes\nAcceptEnv LANG LC_*\nEOF\nsudo systemctl restart sshd\n"
+                                        userData = btoa(userDataRaw)
+                                    }
                                     var instanceParams = {
+                                        BlockDeviceMappings: [
+                                            {
+                                                DeviceName: "/dev/xvda",
+                                                Ebs: {
+                                                    VolumeSize: parseInt(req.body.disk)
+                                                }
+                                            }
+                                        ],
                                         ImageId: imageId,
                                         InstanceType: req.body.type,
                                         KeyName: keyName,
@@ -162,7 +156,8 @@ export default function handler(req, res) {
                                             });
                                         } else {
                                             res.status(200).send({
-                                                instanceId: data.Instances[0].InstanceId
+                                                instanceId: data.Instances[0].InstanceId,
+                                                KeyMaterial: keyMaterial
                                             });
                                         }
                                     });
