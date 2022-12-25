@@ -1,6 +1,7 @@
 # Shizuku Launcher
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/cc4e0b41-47c4-4d44-8c97-afa8eaa8cdc9/deploy-status)](https://app.netlify.com/sites/huac233-launcher-next/deploys)
+[![Vercel Status](https://vercelbadge.vercel.app/api/huac233/shizuku-launcher-next?style=for-the-badge)](https://shizuku-launcher-next-huac233.vercel.app/)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/cc4e0b41-47c4-4d44-8c97-afa8eaa8cdc9/deploy-status)](https://aws.huacha.ml/)
 
 Shizuku Launcher is a simple AWS Virtual Machine helper. Shizuku Launcher offers multiple solutions to keep your credential security and your anonymity.
 
