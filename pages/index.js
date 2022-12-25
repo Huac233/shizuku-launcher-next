@@ -22,7 +22,6 @@ import FormControl from '@mui/material/FormControl';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormGroup from '@mui/material/FormGroup';
 import FormLabel from '@mui/material/FormLabel';
-import Input from '@mui/material/Input';
 import Link from '@mui/material/Link';
 import MenuItem from '@mui/material/MenuItem';
 import Paper from '@mui/material/Paper';
@@ -55,18 +54,15 @@ export default function App() {
   //environments
   const defaultRemote = process.env.NEXT_PUBLIC_DEFAULT_REMOTE || "/api";
 
-  const regions = ["us-east-2", "us-east-1", "us-west-1", "us-west-2", "af-south-1", "ap-east-1", "ap-southeast-3", "ap-south-1", "ap-northeast-3", "ap-northeast-2", "ap-southeast-1", "ap-southeast-2", "ap-northeast-1", "ca-central-1", "eu-central-1", "eu-west-1", "eu-west-2", "eu-south-1", "eu-west-3", "eu-north-1", "me-south-1", "sa-east-1"];
-  const regionsDetail = ["US East (Ohio)", "US East (N. Virginia)", "US West (N. California)", "US West (Oregon)", "Africa (Cape Town)", "Asia Pacific (Hong Kong)", "Asia Pacific (Jakarta)", "Asia Pacific (Mumbai)", "Asia Pacific (Osaka)", "Asia Pacific (Seoul)", "Asia Pacific (Singapore)", "Asia Pacific (Sydney)", "Asia Pacific (Tokyo)", "Canada (Central)", "Europe (Frankfurt)", "Europe (Ireland)", "Europe (London)", "Europe (Milan)", "Europe (Paris)", "Europe (Stockholm)", "Middle East (Bahrain)", "South America (São Paulo)"];
+  const regions = ["us-east-2", "us-east-1", "us-west-1", "us-west-2", "af-south-1", "ap-east-1", "ap-southeast-3", "ap-south-1", "ap-northeast-3", "ap-northeast-2", "ap-southeast-1", "ap-southeast-2", "ap-northeast-1", "ca-central-1", "eu-central-1", "eu-west-1", "eu-west-2", "eu-south-1", "eu-west-3", "eu-north-1", "me-south-1", "sa-east-1"]
+  const regionsDetail = ["US East (Ohio)", "US East (N. Virginia)", "US West (N. California)", "US West (Oregon)", "Africa (Cape Town)", "Asia Pacific (Hong Kong)", "Asia Pacific (Jakarta)", "Asia Pacific (Mumbai)", "Asia Pacific (Osaka)", "Asia Pacific (Seoul)", "Asia Pacific (Singapore)", "Asia Pacific (Sydney)", "Asia Pacific (Tokyo)", "Canada (Central)", "Europe (Frankfurt)", "Europe (Ireland)", "Europe (London)", "Europe (Milan)", "Europe (Paris)", "Europe (Stockholm)", "Middle East (Bahrain)", "South America (São Paulo)"]
   const states = new Map([[0, "正在启动"], [16, "正在运行"], [32, "正在关机"], [48, "已终止"], [64, "正在停止"], [80, "已停止"]]);
-  const systemImageNameMap = new Map([["Debian 10", "debian-10-amd64-2022*"], ["Debian 11", "debian-11-amd64-2022*"], ["Ubuntu 20.04", "ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-2022*"], ["Ubuntu 22.04", "ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-2022*"], ["Arch Linux", "*"], ["Windows Server 2022 简体中文版", "Windows_Server-2022-Chinese_Simplified-Full-Base-*"], ["Windows Server 2022 英文版", "Windows_Server-2022-English-Full-Base-*"]]);
-  const systemImageOwnerMap = new Map([["Debian 10", "136693071363"], ["Debian 11", "136693071363"], ["Ubuntu 20.04", "099720109477"], ["Ubuntu 22.04", "099720109477"], ["Arch Linux", "647457786197"], ["Windows Server 2022 简体中文版", "801119661308"], ["Windows Server 2022 英文版", "801119661308"]]);
-  const systems = ["Debian 10", "Debian 11", "Ubuntu 20.04", "Ubuntu 22.04", "Arch Linux", "Windows Server 2022 简体中文版", "Windows Server 2022 英文版"];
-  const types = ["t2.micro", "t3.micro", "c5n.large", "t3a.micro", "t2.2xlarge", "t2.xlarge", "t2.large", "t2.medium", "t2.nano", "t3.nano", "t3.small", "t3.medium", "t3.large", "t3.xlarge", "t3.2xlarge", "t3a.nano", "t3a.small", "t3a.medium", "t3a.large", "t3a.xlarge", "t3a.2xlarge", "c5n.xlarge", "c5n.4xlarge", "c5n.2xlarge", "c5.xlarge", "c5.2xlarge", "c5.4xlarge", "c5a.large", "c5a.xlarge", "c5a.2xlarge"];
+  const systems = ["Debian 10", "Debian 11", "Ubuntu 20.04", "Ubuntu 22.04", "Arch Linux"]
+  const types = ["a1.medium", "a1.large", "a1.xlarge", "a1.2xlarge", "a1.4xlarge", "a1.metal", "c1.medium", "c1.xlarge", "c3.large", "c3.xlarge", "c3.2xlarge", "c3.4xlarge", "c3.8xlarge", "c4.large", "c4.xlarge", "c4.2xlarge", "c4.4xlarge", "c4.8xlarge", "c5.large", "c5.xlarge", "c5.2xlarge", "c5.4xlarge", "c5.9xlarge", "c5.12xlarge", "c5.18xlarge", "c5.24xlarge", "c5.metal", "c5a.large", "c5a.xlarge", "c5a.2xlarge", "c5a.4xlarge", "c5a.8xlarge", "c5a.12xlarge", "c5a.16xlarge", "c5a.24xlarge", "c5ad.large", "c5ad.xlarge", "c5ad.2xlarge", "c5ad.4xlarge", "c5ad.8xlarge", "c5ad.12xlarge", "c5ad.16xlarge", "c5ad.24xlarge", "c5d.large", "c5d.xlarge", "c5d.2xlarge", "c5d.4xlarge", "c5d.9xlarge", "c5d.12xlarge", "c5d.18xlarge", "c5d.24xlarge", "c5d.metal", "c5n.large", "c5n.xlarge", "c5n.2xlarge", "c5n.4xlarge", "c5n.9xlarge", "c5n.18xlarge", "c5n.metal", "c6g.medium", "c6g.large", "c6g.xlarge", "c6g.2xlarge", "c6g.4xlarge", "c6g.8xlarge", "c6g.12xlarge", "c6g.16xlarge", "c6g.metal", "c6gd.medium", "c6gd.large", "c6gd.xlarge", "c6gd.2xlarge", "c6gd.4xlarge", "c6gd.8xlarge", "c6gd.12xlarge", "c6gd.16xlarge", "c6gd.metal", "c6gn.medium", "c6gn.large", "c6gn.xlarge", "c6gn.2xlarge", "c6gn.4xlarge", "c6gn.8xlarge", "c6gn.12xlarge", "c6gn.16xlarge", "c6i.large", "c6i.xlarge", "c6i.2xlarge", "c6i.4xlarge", "c6i.8xlarge", "c6i.12xlarge", "c6i.16xlarge", "c6i.24xlarge", "c6i.32xlarge", "c6i.metal", "cc1.4xlarge", "cc2.8xlarge", "cg1.4xlarge", "cr1.8xlarge", "d2.xlarge", "d2.2xlarge", "d2.4xlarge", "d2.8xlarge", "d3.xlarge", "d3.2xlarge", "d3.4xlarge", "d3.8xlarge", "d3en.xlarge", "d3en.2xlarge", "d3en.4xlarge", "d3en.6xlarge", "d3en.8xlarge", "d3en.12xlarge", "dl1.24xlarge", "f1.2xlarge", "f1.4xlarge", "f1.16xlarge", "g2.2xlarge", "g2.8xlarge", "g3.4xlarge", "g3.8xlarge", "g3.16xlarge", "g3s.xlarge", "g4ad.xlarge", "g4ad.2xlarge", "g4ad.4xlarge", "g4ad.8xlarge", "g4ad.16xlarge", "g4dn.xlarge", "g4dn.2xlarge", "g4dn.4xlarge", "g4dn.8xlarge", "g4dn.12xlarge", "g4dn.16xlarge", "g4dn.metal", "g5.xlarge", "g5.2xlarge", "g5.4xlarge", "g5.8xlarge", "g5.12xlarge", "g5.16xlarge", "g5.24xlarge", "g5.48xlarge", "g5g.xlarge", "g5g.2xlarge", "g5g.4xlarge", "g5g.8xlarge", "g5g.16xlarge", "g5g.metal", "hi1.4xlarge", "hpc6a.48xlarge", "hs1.8xlarge", "h1.2xlarge", "h1.4xlarge", "h1.8xlarge", "h1.16xlarge", "i2.xlarge", "i2.2xlarge", "i2.4xlarge", "i2.8xlarge", "i3.large", "i3.xlarge", "i3.2xlarge", "i3.4xlarge", "i3.8xlarge", "i3.16xlarge", "i3.metal", "i3en.large", "i3en.xlarge", "i3en.2xlarge", "i3en.3xlarge", "i3en.6xlarge", "i3en.12xlarge", "i3en.24xlarge", "i3en.metal", "im4gn.large", "im4gn.xlarge", "im4gn.2xlarge", "im4gn.4xlarge", "im4gn.8xlarge", "im4gn.16xlarge", "inf1.xlarge", "inf1.2xlarge", "inf1.6xlarge", "inf1.24xlarge", "is4gen.medium", "is4gen.large", "is4gen.xlarge", "is4gen.2xlarge", "is4gen.4xlarge", "is4gen.8xlarge", "m1.small", "m1.medium", "m1.large", "m1.xlarge", "m2.xlarge", "m2.2xlarge", "m2.4xlarge", "m3.medium", "m3.large", "m3.xlarge", "m3.2xlarge", "m4.large", "m4.xlarge", "m4.2xlarge", "m4.4xlarge", "m4.10xlarge", "m4.16xlarge", "m5.large", "m5.xlarge", "m5.2xlarge", "m5.4xlarge", "m5.8xlarge", "m5.12xlarge", "m5.16xlarge", "m5.24xlarge", "m5.metal", "m5a.large", "m5a.xlarge", "m5a.2xlarge", "m5a.4xlarge", "m5a.8xlarge", "m5a.12xlarge", "m5a.16xlarge", "m5a.24xlarge", "m5ad.large", "m5ad.xlarge", "m5ad.2xlarge", "m5ad.4xlarge", "m5ad.8xlarge", "m5ad.12xlarge", "m5ad.16xlarge", "m5ad.24xlarge", "m5d.large", "m5d.xlarge", "m5d.2xlarge", "m5d.4xlarge", "m5d.8xlarge", "m5d.12xlarge", "m5d.16xlarge", "m5d.24xlarge", "m5d.metal", "m5dn.large", "m5dn.xlarge", "m5dn.2xlarge", "m5dn.4xlarge", "m5dn.8xlarge", "m5dn.12xlarge", "m5dn.16xlarge", "m5dn.24xlarge", "m5dn.metal", "m5n.large", "m5n.xlarge", "m5n.2xlarge", "m5n.4xlarge", "m5n.8xlarge", "m5n.12xlarge", "m5n.16xlarge", "m5n.24xlarge", "m5n.metal", "m5zn.large", "m5zn.xlarge", "m5zn.2xlarge", "m5zn.3xlarge", "m5zn.6xlarge", "m5zn.12xlarge", "m5zn.metal", "m6a.large", "m6a.xlarge", "m6a.2xlarge", "m6a.4xlarge", "m6a.8xlarge", "m6a.12xlarge", "m6a.16xlarge", "m6a.24xlarge", "m6a.32xlarge", "m6a.48xlarge", "m6g.metal", "m6g.medium", "m6g.large", "m6g.xlarge", "m6g.2xlarge", "m6g.4xlarge", "m6g.8xlarge", "m6g.12xlarge", "m6g.16xlarge", "m6gd.metal", "m6gd.medium", "m6gd.large", "m6gd.xlarge", "m6gd.2xlarge", "m6gd.4xlarge", "m6gd.8xlarge", "m6gd.12xlarge", "m6gd.16xlarge", "m6i.large", "m6i.xlarge", "m6i.2xlarge", "m6i.4xlarge", "m6i.8xlarge", "m6i.12xlarge", "m6i.16xlarge", "m6i.24xlarge", "m6i.32xlarge", "m6i.metal", "mac1.metal", "p2.xlarge", "p2.8xlarge", "p2.16xlarge", "p3.2xlarge", "p3.8xlarge", "p3.16xlarge", "p3dn.24xlarge", "p4d.24xlarge", "r3.large", "r3.xlarge", "r3.2xlarge", "r3.4xlarge", "r3.8xlarge", "r4.large", "r4.xlarge", "r4.2xlarge", "r4.4xlarge", "r4.8xlarge", "r4.16xlarge", "r5.large", "r5.xlarge", "r5.2xlarge", "r5.4xlarge", "r5.8xlarge", "r5.12xlarge", "r5.16xlarge", "r5.24xlarge", "r5.metal", "r5a.large", "r5a.xlarge", "r5a.2xlarge", "r5a.4xlarge", "r5a.8xlarge", "r5a.12xlarge", "r5a.16xlarge", "r5a.24xlarge", "r5ad.large", "r5ad.xlarge", "r5ad.2xlarge", "r5ad.4xlarge", "r5ad.8xlarge", "r5ad.12xlarge", "r5ad.16xlarge", "r5ad.24xlarge", "r5b.large", "r5b.xlarge", "r5b.2xlarge", "r5b.4xlarge", "r5b.8xlarge", "r5b.12xlarge", "r5b.16xlarge", "r5b.24xlarge", "r5b.metal", "r5d.large", "r5d.xlarge", "r5d.2xlarge", "r5d.4xlarge", "r5d.8xlarge", "r5d.12xlarge", "r5d.16xlarge", "r5d.24xlarge", "r5d.metal", "r5dn.large", "r5dn.xlarge", "r5dn.2xlarge", "r5dn.4xlarge", "r5dn.8xlarge", "r5dn.12xlarge", "r5dn.16xlarge", "r5dn.24xlarge", "r5dn.metal", "r5n.large", "r5n.xlarge", "r5n.2xlarge", "r5n.4xlarge", "r5n.8xlarge", "r5n.12xlarge", "r5n.16xlarge", "r5n.24xlarge", "r5n.metal", "r6g.medium", "r6g.large", "r6g.xlarge", "r6g.2xlarge", "r6g.4xlarge", "r6g.8xlarge", "r6g.12xlarge", "r6g.16xlarge", "r6g.metal", "r6gd.medium", "r6gd.large", "r6gd.xlarge", "r6gd.2xlarge", "r6gd.4xlarge", "r6gd.8xlarge", "r6gd.12xlarge", "r6gd.16xlarge", "r6gd.metal", "r6i.large", "r6i.xlarge", "r6i.2xlarge", "r6i.4xlarge", "r6i.8xlarge", "r6i.12xlarge", "r6i.16xlarge", "r6i.24xlarge", "r6i.32xlarge", "r6i.metal", "t1.micro", "t2.nano", "t2.micro", "t2.small", "t2.medium", "t2.large", "t2.xlarge", "t2.2xlarge", "t3.nano", "t3.micro", "t3.small", "t3.medium", "t3.large", "t3.xlarge", "t3.2xlarge", "t3a.nano", "t3a.micro", "t3a.small", "t3a.medium", "t3a.large", "t3a.xlarge", "t3a.2xlarge", "t4g.nano", "t4g.micro", "t4g.small", "t4g.medium", "t4g.large", "t4g.xlarge", "t4g.2xlarge", "u-6tb1.56xlarge", "u-6tb1.112xlarge", "u-9tb1.112xlarge", "u-12tb1.112xlarge", "u-6tb1.metal", "u-9tb1.metal", "u-12tb1.metal", "u-18tb1.metal", "u-24tb1.metal", "vt1.3xlarge", "vt1.6xlarge", "vt1.24xlarge", "x1.16xlarge", "x1.32xlarge", "x1e.xlarge", "x1e.2xlarge", "x1e.4xlarge", "x1e.8xlarge", "x1e.16xlarge", "x1e.32xlarge", "x2iezn.2xlarge", "x2iezn.4xlarge", "x2iezn.6xlarge", "x2iezn.8xlarge", "x2iezn.12xlarge", "x2iezn.metal", "x2gd.medium", "x2gd.large", "x2gd.xlarge", "x2gd.2xlarge", "x2gd.4xlarge", "x2gd.8xlarge", "x2gd.12xlarge", "x2gd.16xlarge", "x2gd.metal", "z1d.large", "z1d.xlarge", "z1d.2xlarge", "z1d.3xlarge", "z1d.6xlarge", "z1d.12xlarge", "z1d.metal", "x2idn.16xlarge", "x2idn.24xlarge", "x2idn.32xlarge", "x2iedn.xlarge", "x2iedn.2xlarge", "x2iedn.4xlarge", "x2iedn.8xlarge", "x2iedn.16xlarge", "x2iedn.24xlarge", "x2iedn.32xlarge", "c6a.large", "c6a.xlarge", "c6a.2xlarge", "c6a.4xlarge", "c6a.8xlarge", "c6a.12xlarge", "c6a.16xlarge", "c6a.24xlarge", "c6a.32xlarge", "c6a.48xlarge", "c6a.metal", "m6a.metal", "i4i.large", "i4i.xlarge", "i4i.2xlarge", "i4i.4xlarge", "i4i.8xlarge", "i4i.16xlarge", "i4i.32xlarge", "i4i.metal", "x2idn.metal", "x2iedn.metal", "c7g.medium", "c7g.large", "c7g.xlarge", "c7g.2xlarge", "c7g.4xlarge", "c7g.8xlarge", "c7g.12xlarge", "c7g.16xlarge", "mac2.metal", "c6id.large", "c6id.xlarge", "c6id.2xlarge", "c6id.4xlarge", "c6id.8xlarge", "c6id.12xlarge", "c6id.16xlarge", "c6id.24xlarge", "c6id.32xlarge", "c6id.metal", "m6id.large", "m6id.xlarge", "m6id.2xlarge", "m6id.4xlarge", "m6id.8xlarge", "m6id.12xlarge", "m6id.16xlarge", "m6id.24xlarge", "m6id.32xlarge", "m6id.metal", "r6id.large", "r6id.xlarge", "r6id.2xlarge", "r6id.4xlarge", "r6id.8xlarge", "r6id.12xlarge", "r6id.16xlarge", "r6id.24xlarge", "r6id.32xlarge", "r6id.metal", "r6a.large", "r6a.xlarge", "r6a.2xlarge", "r6a.4xlarge", "r6a.8xlarge", "r6a.12xlarge", "r6a.16xlarge", "r6a.24xlarge", "r6a.32xlarge", "r6a.48xlarge", "r6a.metal", "p4de.24xlarge"]
 
   //Credential States
   const [aki, setAki] = useState("");
   const [saki, setSaki] = useState("");
-  const [keyFile, setKeyFile] = useState();
 
   //Mode States
   const [mode, setMode] = useState(1);
@@ -76,29 +72,22 @@ export default function App() {
   //Configuration States
   const [liRegion, setLiRegion] = useState("");
   const [system, setSystem] = useState("");
-  const [systemType, setSystemType] = useState("");
   const [type, setType] = useState("");
   const [ami, setAmi] = useState("");
   const [password, setPassword] = useState("");
-  const [disk, setDisk] = useState("");
+  const [diskSize, setDiskSize] = useState(8);
   const [userdata, setUserdata] = useState("")
   const [gqRegion, setGqRegion] = useState("");
   const [ciRegion, setCiRegion] = useState("");
 
   //Interaction States
+  const [alertOpen, setAlertOpen] = useState(false);
+  const [alertTitle, setAlertTitle] = useState("");
+  const [alertDescription, setAlertDescription] = useState("");
   const [dialogOpen, setDialogOpen] = useState(false);
   const [dialogTitle, setDialogTitle] = useState("");
   const [dialogDescription, setDialogDescription] = useState("");
   const [modeTipOpen, setModeTipOpen] = useState(false);
-  const [alertLaunchInstanceOpen, setAlertLaunchInstanceOpen] = useState(false);
-  const [alertLaunchInstanceTitle, setAlertLaunchInstanceTitle] = useState("");
-  const [alertLaunchInstanceDescription, setAlertLaunchInstanceDescription] = useState("");
-  const [alertGetQuotaOpen, setAlertGetQuotaOpen] = useState(false);
-  const [alertGetQuotaTitle, setAlertGetQuotaTitle] = useState("");
-  const [alertGetQuotaDescription, setAlertGetQuotaDescription] = useState("");
-  const [alertCheckInstancesOpen, setAlertCheckInstancesOpen] = useState(false);
-  const [alertCheckInstancesTitle, setAlertCheckInstancesTitle] = useState("");
-  const [alertCheckInstancesDescription, setAlertCheckInstancesDescription] = useState("");
 
   //Status States
   const [ipInfomation, setIpInfomation] = useState("");
@@ -107,7 +96,6 @@ export default function App() {
   const [isCheckingInstances, setIsCheckingInstances] = useState(false);
   const [isCheckedInstances, setIsCheckedInstances] = useState(false);
   const [regionOfCheckedInstances, setRegionOfCheckedInstances] = useState("");
-  const [idOfGettingWindowsPassword, setIdOfGettingWindowsPassword] = useState("");
   const [idOfInstanceChangingIp, setIdOfInstanceChangingIp] = useState("");
   const [idOfInstanceTerminating, setIdOfInstanceTerminating] = useState("");
   const [isShowAdvancedOptions, setIsShowAdvancedOptions] = useState(false);
@@ -116,39 +104,22 @@ export default function App() {
   const [instances, setInstances] = useState([]);
 
   //Interactions
+  function showAlert(title, description) {
+    setAlertOpen(true);
+    setAlertTitle(title);
+    setAlertDescription(description);
+  }
+
   function showDialog(title, description) {
     setDialogOpen(true);
     setDialogTitle(title);
     setDialogDescription(description);
   }
 
-  function showLaunchInstanceAlert(title, description) {
-    setAlertLaunchInstanceOpen(true);
-    setAlertLaunchInstanceTitle(title);
-    setAlertLaunchInstanceDescription(description);
-  }
-
-  function showGetQuotaAlert(title, description) {
-    setAlertGetQuotaOpen(true);
-    setAlertGetQuotaTitle(title);
-    setAlertGetQuotaDescription(description);
-  }
-
-  function showCheckInstancesAlert(title, description) {
-    setAlertCheckInstancesOpen(true);
-    setAlertCheckInstancesTitle(title);
-    setAlertCheckInstancesDescription(description);
-  }
-
   //Validations
-  function validateDisk() {
-    var validDiskTemplate = /^[0-9]*[1-9][0-9]*$/;
-    return validDiskTemplate.test(disk);
-  }
-
   function validateRemote() {
     if (remote === "/api") {
-      return true;
+      return TextTrackCueList;
     }
     var validRemoteTemplate = /^(http|https?:\/\/)/;
     return validRemoteTemplate.test(remote);
@@ -160,59 +131,6 @@ export default function App() {
   }
 
   //Operations
-  function developmentTest() {
-    //For Development Test Use
-  }
-
-  function getIp() {
-    if (mode === 1 || mode === 3) {
-      if (mode === 3) {
-        //Use proxy
-        //Need Further Investigation
-      }
-      fetch('https://api.ipify.org?format=json', {
-        method: 'GET'
-      })
-        .then(async (response) => {
-          var body = await response.json();
-          if (response.ok) {
-            setIpInfomation("此模式下的IP为： " + body.ip);
-          }
-          else {
-            setIpInfomation("无法获取IP信息");
-          }
-        });
-    }
-    else if (mode === 2 || mode === 4) {
-      var postBody
-      if (mode === 2) {
-        postBody = JSON.stringify({});
-      }
-      else if (mode === 4) {
-        postBody = JSON.stringify({
-          useProxy: true,
-          proxy: proxy
-        });
-      }
-      fetch(remote + '/get-ip', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: postBody
-      })
-        .then(async (response) => {
-          var body = await response.json();
-          if (response.ok) {
-            setIpInfomation("此模式下的IP为： " + body.ip);
-          }
-          else {
-            setIpInfomation("无法获取IP信息");
-          }
-        });
-    }
-  }
-
   function launchInstance() {
     setIsLaunchingInstance(true);
     if (aki.length !== 20 || saki.length !== 40) {
@@ -235,13 +153,8 @@ export default function App() {
       setIsLaunchingInstance(false);
       return;
     }
-    if (password.length < 6 && systemType == "Linux") {
+    if (password.length < 6) {
       showDialog("无效密码", "请输入6位以上密码后再试一次");
-      setIsLaunchingInstance(false);
-      return;
-    }
-    if (!validateDisk()) {
-      showDialog("无效磁盘空间", "请输入正确的磁盘空间后再试一次");
       setIsLaunchingInstance(false);
       return;
     }
@@ -276,8 +189,28 @@ export default function App() {
         imageId = ami;
       }
       else {
-        var imageName = systemImageNameMap.get(system);
-        var imageOwner = systemImageOwnerMap.get(system);
+        var imageName = ''
+        var imageOwner = ''
+        if (system === 'Debian 10') {
+          imageName = 'debian-10-amd64-2022*';
+          imageOwner = '136693071363';
+        }
+        if (system === 'Debian 11') {
+          imageName = 'debian-11-amd64-2022*';
+          imageOwner = '136693071363';
+        }
+        if (system === 'Ubuntu 20.04') {
+          imageName = 'ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-2022*';
+          imageOwner = '099720109477';
+        }
+        if (system === 'Ubuntu 22.04') {
+          imageName = 'ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-2022*';
+          imageOwner = '099720109477';
+        }
+        if (system === 'Arch Linux') {
+          imageName = '*';
+          imageOwner = '647457786197';
+        }
 
         var imageParams = {
           Filters: [
@@ -319,15 +252,6 @@ export default function App() {
           showDialog("启动实例失败：" + err.name, "错误：" + err.message + " 请再试一次或联系支持");
           setIsLaunchingInstance(false);
           return;
-        }
-
-        if (systemType == "Windows") {
-          const blob = new Blob([data.KeyMaterial], { type: "text/plain" });
-          const url = URL.createObjectURL(blob);
-          const link = document.createElement("a");
-          link.download = "key.pem";
-          link.href = url;
-          link.click();
         }
       });
 
@@ -401,17 +325,14 @@ export default function App() {
               return;
             } else {
 
-              var userData = "";
-              if (systemType == "Linux") {
-                var userDataRaw = "#!/bin/bash\necho root:" + password + "|sudo chpasswd root\nsudo rm -rf /etc/ssh/sshd_config\nsudo tee /etc/ssh/sshd_config <<EOF\nClientAliveInterval 120\nSubsystem       sftp    /usr/lib/openssh/sftp-server\nX11Forwarding yes\nPrintMotd no\nChallengeResponseAuthentication no\nPasswordAuthentication yes\nPermitRootLogin yes\nUsePAM yes\nAcceptEnv LANG LC_*\nEOF\nsudo systemctl restart sshd\n" + userdata;
-                userData = btoa(userDataRaw);
-              }
+              var userDataRaw = "#!/bin/bash\necho root:" + password + "|sudo chpasswd root\nsudo rm -rf /etc/ssh/sshd_config\nsudo tee /etc/ssh/sshd_config <<EOF\nClientAliveInterval 120\nSubsystem       sftp    /usr/lib/openssh/sftp-server\nX11Forwarding yes\nPrintMotd no\nChallengeResponseAuthentication no\nPasswordAuthentication yes\nPermitRootLogin yes\nUsePAM yes\nAcceptEnv LANG LC_*\nEOF\nsudo systemctl restart sshd\n" + userdata
+              var userData = btoa(userDataRaw)
               var instanceParams = {
                 BlockDeviceMappings: [
                   {
                     DeviceName: "/dev/xvda",
                     Ebs: {
-                      VolumeSize: parseInt(disk)
+                      VolumeSize: diskSize
                     }
                   }
                 ],
@@ -430,7 +351,7 @@ export default function App() {
                   showDialog("启动实例失败：" + err.name, "错误：" + err.message + " 请再试一次或联系支持");
                   setIsLaunchingInstance(false);
                 } else {
-                  showLaunchInstanceAlert("启动实例成功", "您的新实例id为" + data.Instances[0].InstanceId + "，请通过查询实例详细信息获得公网ip");
+                  showAlert("启动实例成功", "您的新实例id为" + data.Instances[0].InstanceId + "，请通过查询实例详细信息获得公网ip");
                   setIsLaunchingInstance(false);
                   setInstances([]);
                 }
@@ -450,10 +371,8 @@ export default function App() {
           saki: saki,
           region: liRegion,
           system: system,
-          systemType: systemType,
           type: type,
           password: password,
-          disk: parseInt(disk),
           useProxy: false
         })
       }
@@ -463,10 +382,8 @@ export default function App() {
           saki: saki,
           region: liRegion,
           system: system,
-          systemType: systemType,
           type: type,
           password: password,
-          disk: parseInt(disk),
           useProxy: true,
           proxy: proxy
         })
@@ -481,16 +398,7 @@ export default function App() {
         .then(async (response) => {
           var body = await response.json();
           if (response.ok) {
-            if (systemType == "Windows") {
-              const blob = new Blob([body.KeyMaterial], { type: "text/plain" });
-              const url = URL.createObjectURL(blob);
-              const link = document.createElement("a");
-              link.download = "key.pem";
-              link.href = url;
-              link.click();
-            }
-
-            showLaunchInstanceAlert("启动实例成功", "您的新实例id为" + body.instanceId + "，请通过查询实例详细信息获得公网ip");
+            showAlert("启动实例成功", "您的新实例id为" + body.instanceId + "，请通过查询实例详细信息获得公网ip");
             setIsLaunchingInstance(false);
             setInstances([]);
           }
@@ -549,7 +457,7 @@ export default function App() {
           setIsGettingQuota(false);
         }
         else {
-          showGetQuotaAlert("查看配额成功", "您在该区域的配额为" + String(data.Quota.Value));
+          showAlert("查看配额成功", "您在该区域的配额为" + String(data.Quota.Value));
           setIsGettingQuota(false);
         }
       });
@@ -583,7 +491,7 @@ export default function App() {
         .then(async (response) => {
           var body = await response.json();
           if (response.ok) {
-            showGetQuotaAlert("查看配额成功", "您在该区域的配额为" + String(body.quota));
+            showAlert("查看配额成功", "您在该区域的配额为" + String(body.quota));
             setIsGettingQuota(false);
           }
           else {
@@ -648,7 +556,7 @@ export default function App() {
           })
           setInstances(processedInstances);
           if (!noSuccessAlert) {
-            showCheckInstancesAlert("查看实例详细信息成功", "请在查看实例详细信息选项卡中查看您在该区域的实例信息");
+            showAlert("查看实例详细信息成功", "请在查看实例详细信息选项卡中查看您在该区域的实例信息");
           }
           setIsCheckingInstances(false);
           setIsCheckedInstances(true);
@@ -687,7 +595,7 @@ export default function App() {
           if (response.ok) {
             setInstances(body.instances);
             if (!noSuccessAlert) {
-              showCheckInstancesAlert("查看实例详细信息成功", "请在查看实例详细信息选项卡中查看您在该区域的实例信息");
+              showAlert("查看实例详细信息成功", "请在查看实例详细信息选项卡中查看您在该区域的实例信息");
             }
             setIsCheckingInstances(false);
             setIsCheckedInstances(true);
@@ -699,114 +607,6 @@ export default function App() {
           }
         });
     }
-  }
-
-  function getWindowsPassword(id) {
-    setIdOfGettingWindowsPassword(id);
-    if (keyFile == undefined) {
-      showDialog("获取密码错误", "请选择密钥文件后再试一次");
-      setIdOfGettingWindowsPassword("");
-      return;
-    }
-    var fileReader = new FileReader();
-    fileReader.onload = async function (e) {
-      const JSEncrypt = (await import('jsencrypt')).default;
-      var decrypt = new JSEncrypt();
-      decrypt.setPrivateKey(e.target.result);
-      if (mode === 1 || mode === 3) {
-        AWS.config = new AWS.Config();
-        AWS.config.update(
-          {
-            accessKeyId: aki,
-            secretAccessKey: saki,
-            region: regionOfCheckedInstances
-          }
-        );
-        if (mode === 3) {
-          AWS.config.update({
-            httpOptions: { agent: ProxyAgent(proxy) }
-          });
-        }
-        var ec2 = new AWS.EC2();
-
-        var params = {
-          InstanceId: id
-        }
-
-        ec2.getPasswordData(params, function (err, data) {
-          if (err) {
-            showDialog("获取密码失败：" + err.name, "错误：" + err.message + " 请再试一次或联系支持");
-            setIdOfGettingWindowsPassword("");
-            return;
-          }
-          if (data.PasswordData == "") {
-            showDialog("获取密码失败：初始化尚未完成", "请等待15分钟左右再此获取");
-            setIdOfGettingWindowsPassword("");
-            return;
-          }
-          var uncrypted = decrypt.decrypt(data.PasswordData);
-          if (uncrypted.length !== 32) {
-            showDialog("获取密码错误", "请选择正确的密钥文件后再试一次");
-            setIdOfGettingWindowsPassword("");
-            return;
-          }
-          showCheckInstancesAlert("获取密码成功", "Administrator的密码为：" + uncrypted);
-          setIdOfGettingWindowsPassword("");
-        });
-      }
-      else if (mode === 2 || mode === 4) {
-        var postBody
-        if (mode === 2) {
-          postBody = JSON.stringify({
-            aki: aki,
-            saki: saki,
-            instanceId: id,
-            region: regionOfCheckedInstances,
-            useProxy: false
-          });
-        }
-        else if (mode === 4) {
-          postBody = JSON.stringify({
-            aki: aki,
-            saki: saki,
-            instanceId: id,
-            region: regionOfCheckedInstances,
-            useProxy: true,
-            proxy: proxy
-          });
-        }
-        fetch(remote + '/aws-get-windows-password', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: postBody
-        })
-          .then(async (response) => {
-            var body = await response.json();
-            if (response.ok) {
-              var uncrypted = decrypt.decrypt(body.PasswordData);
-              if (uncrypted === null) {
-                showDialog("获取密码错误", "请选择正确的密钥文件后再试一次");
-                setIdOfGettingWindowsPassword("");
-                return;
-              }
-              if (uncrypted.length !== 32) {
-                showDialog("获取密码错误", "请选择正确的密钥文件后再试一次");
-                setIdOfGettingWindowsPassword("");
-                return;
-              }
-              showCheckInstancesAlert("获取密码成功", "Administrator的密码为：" + uncrypted);
-              setIdOfGettingWindowsPassword("");
-            }
-            else {
-              showDialog("查看配额失败：" + body.error.name, "错误：" + body.error.message + " 请再试一次或联系支持");
-              setIdOfGettingWindowsPassword("");
-            }
-          });
-      }
-    }
-    fileReader.readAsText(keyFile);
   }
 
   function changeInstanceIp(id) {
@@ -880,7 +680,7 @@ export default function App() {
                     }
                     else {
                       setIdOfInstanceChangingIp("");
-                      showCheckInstancesAlert("更换实例ip成功", "请在实例详细信息查看新ip");
+                      showAlert("更换实例ip成功", "请在实例详细信息查看新ip");
                       checkInstances(true);
                     }
                   });
@@ -922,7 +722,7 @@ export default function App() {
         .then(async (response) => {
           var body = await response.json();
           if (response.ok) {
-            showCheckInstancesAlert("更换实例ip成功", "请在实例详细信息查看新ip");
+            showAlert("更换实例ip成功", "请在实例详细信息查看新ip");
             setIdOfInstanceChangingIp("");
             checkInstances(true);
           }
@@ -977,7 +777,7 @@ export default function App() {
           setIdOfInstanceTerminating("");
         }
         else {
-          showCheckInstancesAlert("终止实例成功", "实例将在不久后被删除，在此之前它会保留在列表一段时间");
+          showAlert("终止实例成功", "实例将在不久后被删除，在此之前它会保留在列表一段时间");
           setIdOfInstanceTerminating("");
           checkInstances(true);
         }
@@ -1014,13 +814,62 @@ export default function App() {
         .then(async (response) => {
           var body = await response.json();
           if (response.ok) {
-            showCheckInstancesAlert("终止实例成功", "实例将在不久后被删除，在此之前它会保留在列表一段时间");
+            showAlert("终止实例成功", "实例将在不久后被删除，在此之前它会保留在列表一段时间");
             setIdOfInstanceTerminating("");
             checkInstances(true);
           }
           else {
             showDialog("终止实例失败：" + body.err.name, "错误：" + body.err.message + "，请再试一次或联系支持");
             setIdOfInstanceTerminating("");
+          }
+        });
+    }
+  }
+
+  function getIp() {
+    if (mode === 1 || mode === 3) {
+      if (mode === 3) {
+        //Use proxy
+        //Need Further Investigation
+      }
+      fetch('https://api.ipify.org?format=json', {
+        method: 'GET'
+      })
+        .then(async (response) => {
+          var body = await response.json();
+          if (response.ok) {
+            setIpInfomation("此模式下的IP为： " + body.ip);
+          }
+          else {
+            setIpInfomation("无法获取IP信息");
+          }
+        });
+    }
+    else if (mode === 2 || mode === 4) {
+      var postBody
+      if (mode === 2) {
+        postBody = JSON.stringify({});
+      }
+      else if (mode === 4) {
+        postBody = JSON.stringify({
+          useProxy: true,
+          proxy: proxy
+        });
+      }
+      fetch(remote + '/get-ip', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: postBody
+      })
+        .then(async (response) => {
+          var body = await response.json();
+          if (response.ok) {
+            setIpInfomation("此模式下的IP为： " + body.ip);
+          }
+          else {
+            setIpInfomation("无法获取IP信息");
           }
         });
     }
@@ -1055,17 +904,6 @@ export default function App() {
           }} />
         </FormControl>
       </div>
-      {isShowAdvancedOptions ? (
-        <div>
-          <FormControl>
-            <Button sx={{ m: 1 }} variant="contained" size="small" onClick={() => {
-              developmentTest();
-            }}>Development Test</Button>
-          </FormControl>
-        </div>
-      ) : (
-        <></>
-      )}
       <div>
         <Collapse in={modeTipOpen}>
           <Alert severity="info" onClose={() => { setModeTipOpen(false) }}>
@@ -1185,6 +1023,12 @@ export default function App() {
           }} />} label={<Typography variant="subtitle2">Advanced Options (Currently Only Local Mode)</Typography>} />
         </FormGroup>
       </div>
+      <Collapse in={alertOpen}>
+        <Alert severity="success" onClose={() => { setAlertOpen(false) }}>
+          <AlertTitle>{alertTitle}</AlertTitle>
+          {alertDescription}
+        </Alert>
+      </Collapse>
       <Dialog
         open={dialogOpen}
         onClose={() => { setDialogOpen(false); }}
@@ -1204,12 +1048,6 @@ export default function App() {
         </DialogActions>
       </Dialog>
       <Divider sx={{ m: 1 }} />
-      <Collapse in={alertLaunchInstanceOpen}>
-        <Alert severity="success" onClose={() => { setAlertLaunchInstanceOpen(false) }}>
-          <AlertTitle>{alertLaunchInstanceTitle}</AlertTitle>
-          {alertLaunchInstanceDescription}
-        </Alert>
-      </Collapse>
       <Typography sx={{ m: 1 }} variant="h6">启动实例</Typography>
       <div>
         <FormControl sx={{ m: 1, minWidth: 100 }} size="small">
@@ -1232,13 +1070,7 @@ export default function App() {
           <FormControl sx={{ m: 1, minWidth: 150 }} size="small">
             <InputLabel id="select-system-label">操作系统</InputLabel>
             <Select labelId="select-system-label" label="操作系统" value={system} onChange={e => {
-              setSystem(e.target.value);
-              if (e.target.value == "Debian 10" || e.target.value == "Debian 11" || e.target.value == "Ubuntu 20.04" || e.target.value == "Ubuntu 22.04" || e.target.value == "Arch Linux") {
-                setSystemType("Linux");
-              }
-              if (e.target.value == "Windows Server 2022 简体中文版" || e.target.value == "Windows Server 2022 英文版") {
-                setSystemType("Windows");
-              }
+              setSystem(e.target.value);;
             }}>
               {systems.map((r, i) =>
                 <MenuItem key={i} value={r}>{r}</MenuItem>
@@ -1264,24 +1096,24 @@ export default function App() {
             </Select>
           </FormControl>
         )}
-        {systemType == "Linux" ? (
+        <div>
+          <FormControl sx={{ m: 1, minWidth: 150 }}>
+            <TextField label="密码" type="password" variant="outlined" size="small" onChange={(e) => {
+              setPassword(e.target.value);
+            }} />
+          </FormControl>
+        </div>
+        {isShowAdvancedOptions ? (
           <div>
             <FormControl sx={{ m: 1, minWidth: 150 }}>
-              <TextField label="密码" type="password" variant="outlined" size="small" onChange={(e) => {
-                setPassword(e.target.value);
+              <TextField label="Disk Size" variant="outlined" size="small" multiline onChange={(e) => {
+                setDiskSize(parseInt(e.target.value));
               }} />
             </FormControl>
           </div>
         ) : (
           <></>
         )}
-        <div>
-          <FormControl sx={{ m: 1, minWidth: 150 }}>
-            <TextField label="磁盘空间（GB）" variant="outlined" size="small" multiline onChange={(e) => {
-              setDisk(e.target.value);
-            }} />
-          </FormControl>
-        </div>
         {isShowAdvancedOptions ? (
           <div>
             <FormControl sx={{ m: 1, minWidth: 600 }}>
@@ -1303,12 +1135,6 @@ export default function App() {
           </FormControl>
         </div>)}
       <Divider sx={{ m: 1 }} />
-      <Collapse in={alertGetQuotaOpen}>
-        <Alert severity="success" onClose={() => { setAlertGetQuotaOpen(false) }}>
-          <AlertTitle>{alertGetQuotaTitle}</AlertTitle>
-          {alertGetQuotaDescription}
-        </Alert>
-      </Collapse>
       <Typography sx={{ m: 1 }} variant="h6">查询配额</Typography>
       <div>
         <FormControl sx={{ m: 1, minWidth: 100 }} size="small">
@@ -1332,12 +1158,6 @@ export default function App() {
         </div>
       )}
       <Divider sx={{ m: 1 }} />
-      <Collapse in={alertCheckInstancesOpen}>
-        <Alert severity="success" onClose={() => { setAlertCheckInstancesOpen(false) }}>
-          <AlertTitle>{alertCheckInstancesTitle}</AlertTitle>
-          {alertCheckInstancesDescription}
-        </Alert>
-      </Collapse>
       <Typography sx={{ m: 1 }} variant="h6">查看实例详细信息</Typography>
       <div>
         <FormControl sx={{ m: 1, minWidth: 100 }} size="small">
@@ -1383,18 +1203,8 @@ export default function App() {
                   <TableCell>{row.platform}</TableCell>
                   <TableCell>
                     <Box sx={{ '& button': { m: 1 } }}>
-                      {idOfGettingWindowsPassword === row.id || idOfInstanceChangingIp === row.id || idOfInstanceTerminating === row.id ? (<CircularProgress />) : (
+                      {idOfInstanceChangingIp === row.id || idOfInstanceTerminating === row.id ? (<CircularProgress />) : (
                         <div>
-                          {row.platform == "Windows" ? (
-                            <div>
-                              <Input type="file" onChange={(e) => {
-                                setKeyFile(e.target.files[0]);
-                              }}></Input>
-                              <Button size="small" variant="outlined" onClick={() => getWindowsPassword(row.id)}>获取密码</Button>
-                            </div>
-                          ) : (
-                            <></>
-                          )}
                           <Button size="small" variant="outlined" onClick={() => changeInstanceIp(row.id)}>更换ip</Button>
                           <Button size="small" variant="outlined" color="error" onClick={() => terminateInstance(row.id)}>终止</Button>
                         </div>
