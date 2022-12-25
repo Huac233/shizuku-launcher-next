@@ -1064,7 +1064,7 @@ export default function App() {
           <FormControl>
             <Button sx={{ m: 1 }} variant="contained" size="small" onClick={() => {
               developmentTest();
-            }}>Development Test</Button>
+            }}>测试模式（未实现）</Button>
           </FormControl>
         </div>
       ) : (
@@ -1237,7 +1237,7 @@ export default function App() {
             <InputLabel id="select-system-label">操作系统</InputLabel>
             <Select labelId="select-system-label" label="操作系统" value={system} onChange={e => {
               setSystem(e.target.value);
-              if (e.target.value == "Debian 10" || e.target.value == "Debian 11" || e.target.value == "Ubuntu 20.04" || e.target.value == "Ubuntu 22.04" || e.target.value == "Arch Linux") {
+              if (e.target.value == "Debian 11 AMD" || e.target.value == "Debian 11 ARM" || e.target.value == "Ubuntu 22.04 AMD" || e.target.value == "Ubuntu 22.04 ARM" || e.target.value == "Arch Linux") {
                 setSystemType("Linux");
               }
               if (e.target.value == "Windows Server 2022 简体中文版" || e.target.value == "Windows Server 2022 英文版") {
